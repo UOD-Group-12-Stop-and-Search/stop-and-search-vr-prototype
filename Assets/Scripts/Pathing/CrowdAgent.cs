@@ -32,6 +32,8 @@ namespace Pathing
 
         public void InitAgent(Vector3 targetPosition)
         {
+            ReferenceResolver.ResolveReferences(this);
+            
             m_bodyRenderer.material.color = s_colors.GetRandomElement();
             
             m_walkingState.InitMovement(targetPosition);

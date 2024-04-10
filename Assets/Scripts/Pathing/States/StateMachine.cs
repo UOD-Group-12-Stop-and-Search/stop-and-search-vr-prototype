@@ -26,7 +26,7 @@ namespace Pathing.States
                 StateBehaviour oldState = m_currentState;
                 m_currentState = value;
 
-                if (oldState != null && m_currentState != null)
+                if (m_currentState != null)
                 {
                     m_currentState.enabled = true;
                     m_currentState.OnSwitchTo(oldState);
@@ -40,6 +40,14 @@ namespace Pathing.States
         private StateBehaviour m_initialBehaviour = null!;
 
         [CanBeNull] public event EventHandler StateChanged;
+
+        private void Awake()
+        {
+            foreach (StateBehaviour behaviour in GetComponents<StateBehaviour>())
+            {
+                behaviour.enabled = false;
+            }
+        }
 
         private void Start()
         {

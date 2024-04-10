@@ -1,6 +1,7 @@
 ﻿using System;
 using BeanCore.Unity.ReferenceResolver;
 using BeanCore.Unity.ReferenceResolver.Attributes;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Pathing.States
         private StateMachine m_stateMachine;
 
         [SerializeField] 
-        private TextMesh m_textMesh;
+        private TextMeshProUGUI m_textMesh;
 
         public override void Start()
         {

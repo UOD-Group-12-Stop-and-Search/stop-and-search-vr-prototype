@@ -1,5 +1,6 @@
 ﻿using System;
 using BeanCore.Unity.ReferenceResolver;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Pathing.States
@@ -12,7 +13,7 @@ namespace Pathing.States
             enabled = false;
         }
         
-        public abstract void OnSwitchAway(StateBehaviour newBehaviour);
-        public abstract void OnSwitchTo(StateBehaviour oldBehaviour);
+        public abstract void OnSwitchAway([CanBeNull] StateBehaviour newBehaviour);
+        public abstract void OnSwitchTo([CanBeNull] StateBehaviour oldBehaviour);
     }
 }
