@@ -2,6 +2,7 @@
 using BeanCore.Unity.ReferenceResolver.Attributes;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Pathing.States
 {
@@ -10,7 +11,10 @@ namespace Pathing.States
     {
         [BindComponent]
         private NavMeshAgent m_agent;
-        
+
+        [BindComponent]
+        private XRSimpleInteractable m_interactable;
+
         [SerializeField] private float m_destinationKillDistance = 1f;
 
         [SerializeField] private MinMaxFloat m_speed;
@@ -19,7 +23,13 @@ namespace Pathing.States
         [Header("runner")]
         [SerializeField] private float m_runnerChance;
         [SerializeField] private MinMaxFloat m_runnerSpeed;
-        
+
+        public override void Start()
+        {
+            base.Start();
+            m_interactable.activated.AddListener((_) => TriggerQuestioning());
+        }
+
         public override void OnSwitchAway(StateBehaviour newBehaviour)
         {
             m_agent.ResetPath();
@@ -48,6 +58,11 @@ namespace Pathing.States
             {
                 Destroy(gameObject);
             }
+        }
+
+        public void TriggerQuestioning()
+        {
+            StateMachine.CurrentState = GetComponent<QuestioningState>();
         }
     }
 }

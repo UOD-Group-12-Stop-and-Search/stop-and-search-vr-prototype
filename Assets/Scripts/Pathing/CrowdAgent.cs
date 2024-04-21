@@ -4,6 +4,8 @@ using BeanCore.Unity.ReferenceResolver.Attributes;
 using Pathing.States;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
+using UnityEngine.XR.Interaction.Toolkit;
 using Random = UnityEngine.Random;
 
 namespace Pathing
@@ -21,10 +23,10 @@ namespace Pathing
 
         [BindComponent]
         private StateMachine m_stateMachine;
-        
+
         [BindComponent]
         private UnbotheredWalkingState m_walkingState;
-        
+
         [BindComponent]
         private NavMeshAgent m_agent;
 
@@ -33,20 +35,15 @@ namespace Pathing
         public void InitAgent(Vector3 targetPosition)
         {
             ReferenceResolver.ResolveReferences(this);
-            
+
             m_bodyRenderer.material.color = s_colors.GetRandomElement();
-            
+
             m_walkingState.InitMovement(targetPosition);
         }
 
         public void MatchSpeed(CrowdAgent other)
         {
             m_agent.speed = other.m_agent.speed;
-        }
-
-        public void TriggerQuestioning()
-        {
-            m_stateMachine.CurrentState = GetComponent<QuestioningState>();
         }
     }
 }
