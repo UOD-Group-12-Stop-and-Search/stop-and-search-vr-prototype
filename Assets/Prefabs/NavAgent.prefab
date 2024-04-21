@@ -229,8 +229,8 @@ MonoBehaviour:
     Min: 0.333
     Max: 1.2
   m_scale:
-    Min: 0.75
-    Max: 1.25
+    Min: 0.4
+    Max: 0.8
   m_runnerChance: 0.1
   m_runnerSpeed:
     Min: 2
