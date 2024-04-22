@@ -1,16 +1,19 @@
 ﻿using System;
 using BeanCore.Unity.ReferenceResolver;
 using BeanCore.Unity.ReferenceResolver.Attributes;
+using Pathing.States;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
+using UnityEngine.XR.Interaction.Toolkit;
 using Random = UnityEngine.Random;
 
 namespace Pathing
 {
+    [RequireComponent(typeof(UnbotheredWalkingState))]
     public class CrowdAgent : MonoBehaviour
     {
-        private static readonly Color[] s_colors = new Color[]
-        {
+        private static readonly Color[] s_colors = {
             Color.red,
             Color.blue,
             Color.green,
@@ -19,39 +22,23 @@ namespace Pathing
         };
 
         [BindComponent]
+        private StateMachine m_stateMachine;
+
+        [BindComponent]
+        private UnbotheredWalkingState m_walkingState;
+
+        [BindComponent]
         private NavMeshAgent m_agent;
 
         [SerializeField] private MeshRenderer m_bodyRenderer;
-        [SerializeField] private float m_destinationKillDistance = 1f;
-
-        [SerializeField] private MinMaxFloat m_speed;
-        [SerializeField] private MinMaxFloat m_scale;
-
-        [Header("runner")]
-        [SerializeField] private float m_runnerChance;
-        [SerializeField] private MinMaxFloat m_runnerSpeed;
 
         public void InitAgent(Vector3 targetPosition)
         {
             ReferenceResolver.ResolveReferences(this);
 
-            float scale = m_scale.GetRandomInRange();
-            transform.localScale = new Vector3(scale, scale, scale);
-
-            // select if it should use runner speed or not
-            m_agent.speed = Random.value <= m_runnerChance ? m_runnerSpeed.GetRandomInRange() : m_speed.GetRandomInRange();
-
-            m_agent.SetDestination(targetPosition);
-
             m_bodyRenderer.material.color = s_colors.GetRandomElement();
-        }
 
-        private void Update()
-        {
-            if (m_agent.remainingDistance < m_destinationKillDistance)
-            {
-                Destroy(gameObject);
-            }
+            m_walkingState.InitMovement(targetPosition);
         }
 
         public void MatchSpeed(CrowdAgent other)
