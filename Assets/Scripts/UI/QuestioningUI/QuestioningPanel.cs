@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Dialogue;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace UI.QuestioningUI
 {
@@ -24,10 +27,27 @@ namespace UI.QuestioningUI
 
         [SerializeField]
         private Transform m_conversationHost = null!;
+        [SerializeField]
+        private ScrollRect m_conversationScrollView = null!;
 
         private readonly List<PlayerQuestionHost> m_questionHosts = new List<PlayerQuestionHost>();
 
         public RequirementsManager RequirementsManager { get; } = new RequirementsManager();
+
+        [SerializeField]
+        private Dialogue.Dialogue? m_initialDialogue;
+
+        private void Start()
+        {
+            if (m_initialDialogue != null)
+            {
+                PopulatePanel(m_initialDialogue);
+            }
+            else
+            {
+                PopulatePanel(DialogueManager.Instance.SelectRandomDialogue());
+            }
+        }
 
         public void PopulatePanel(Dialogue.Dialogue dialogue)
         {
@@ -41,12 +61,28 @@ namespace UI.QuestioningUI
                 if (m_currentQuestionHostHost >= m_questionHostHosts.Length)
                     m_currentQuestionHostHost = 0;
             }
+
+            if (dialogue.PotentialStartingText.Length > 0)
+            {
+                string text = dialogue.PotentialStartingText.GetRandomElement();
+                ReportConversationText(text, ConversationSide.NPC);
+            }
         }
 
         public void OnQuestionClicked(PlayerQuestion question)
         {
-            // get the first response that meets its requirements
-            NpcResponse? validResponse = question.Responses.FirstOrDefault(r => RequirementsManager.CheckMeetsRequirements(r.Requirements));
+            // get a random response that meets its requirements
+            NpcResponse? validResponse;
+            NpcResponse[] responses = question.Responses.Where(r => RequirementsManager.CheckMeetsRequirements(r.Requirements)).ToArray();
+            if (responses.Length == 0)
+            {
+                validResponse = null;
+            }
+            else
+            {
+                // get random from valid
+                validResponse = responses.GetRandomElement();
+            }
 
             // pre question action
             question.PreInvokeAction();
@@ -74,6 +110,14 @@ namespace UI.QuestioningUI
 
             // refresh all question buttons
             m_questionHosts.ForEach((h) => h.Refresh());
+
+            // force scroll to bottom for this and the next few frames
+            // ensures that everything works with the layout jank at the end of ReportConversationText
+            m_conversationScrollView.normalizedPosition = Vector2.zero;
+            this.WaitFramesThenExecute(1, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
+            this.WaitFramesThenExecute(2, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
+            this.WaitFramesThenExecute(3, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
+            this.WaitFramesThenExecute(4, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
         }
 
         private void ReportConversationText(string text, ConversationSide conversationSide)
@@ -92,7 +136,12 @@ namespace UI.QuestioningUI
             }
 
             GameObject instance = Instantiate(prefab, m_conversationHost);
-            instance.GetComponent<TextMeshProUGUI>().text = text;
+            instance.GetComponent<ConversationEntry>().BodyText.text = text;
+
+            // for some reason the layout fucks up unless this is done like this
+            // the 2 frame delay is deliberate
+            // 1 and 0 frame delays do nothing
+            this.WaitFramesThenExecute(2, () => LayoutRebuilder.MarkLayoutForRebuild((instance.transform as RectTransform)!));
         }
     }
 

@@ -9,7 +9,7 @@ namespace Dialogue
         [SerializeField]
         private List<Dialogue> m_dialogues = new List<Dialogue>();
 
-        public Dialogue SelectRandom()
+        public Dialogue SelectRandomDialogue()
         {
             return m_dialogues.GetRandomElement();
         }

@@ -28,6 +28,7 @@ namespace UI.QuestioningUI
             Host = host;
             Question = question;
             m_questionText.text = question.ButtonText;
+            m_button.onClick.AddListener(OnClick);
             Refresh();
         }
 

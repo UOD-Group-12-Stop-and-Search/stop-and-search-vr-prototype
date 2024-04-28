@@ -63,24 +63,27 @@ namespace Dialogue
             if (String.IsNullOrEmpty(name))
                 return true;
 
-            if (m_requirements.TryGetValue(name, out int result))
-            {
-                switch (mode)
-                {
-                    case RequirementMode.GREATER_THAN:
-                        return value > result;
-                    case RequirementMode.LESS_THAN:
-                        return value < result;
-                    case RequirementMode.EQUAL:
-                        return value == result;
-                    case RequirementMode.NOT_EQUAL:
-                        return value != result;
-                    default:
-                        return false;
-                }
-            }
+            // ensure than an entry exists
+            m_requirements.TryAdd(name, 0);
 
-            return false;
+            int result = m_requirements[name];
+            switch (mode)
+            {
+                case RequirementMode.GREATER_THAN:
+                    return result > value;
+                case RequirementMode.GREATER_THAN_OR_EQUAL_TO:
+                    return result >= value;
+                case RequirementMode.LESS_THAN:
+                    return result < value;
+                case RequirementMode.LESS_THAN_OR_EQUAL_TO:
+                    return result <= value;
+                case RequirementMode.EQUAL:
+                    return result == value;
+                case RequirementMode.NOT_EQUAL:
+                    return result != value;
+                default:
+                    return false;
+            }
         }
     }
 }

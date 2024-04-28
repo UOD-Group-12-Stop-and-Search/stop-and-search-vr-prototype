@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 5731918132331398503}
   - component: {fileID: 6813601528597190636}
   - component: {fileID: 1219306025882630105}
+  - component: {fileID: 2227338846477587817}
   m_Layer: 5
   m_Name: PlayerConversationEntry
   m_TagString: Untagged
@@ -239,6 +240,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2227338846477587817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3711941306712242651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb485fcc30a145289e91ce972bce3340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BodyText>k__BackingField: {fileID: 3964964950807403638}
+  <NameText>k__BackingField: {fileID: 6771358950457999414}
 --- !u!1 &4344575276957915507
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +320,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: You
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
