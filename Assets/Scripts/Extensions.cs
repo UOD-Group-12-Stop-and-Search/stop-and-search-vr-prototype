@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public static class Extensions
 {
@@ -18,5 +20,20 @@ public static class Extensions
     public static T GetRandomElement<T>(this IReadOnlyList<T> collection)
     {
         return collection[Mathf.RoundToInt(Random.value * (collection.Count - 1))];
+    }
+
+    public static void WaitFramesThenExecute(this MonoBehaviour behaviour, int framesToWait, Action callback)
+    {
+        behaviour.StartCoroutine(WaitFramesThenExecuteCoroutine(framesToWait, callback));
+    }
+
+    private static IEnumerator WaitFramesThenExecuteCoroutine(int framesToWait, Action callback)
+    {
+        for (int i = 0; i < framesToWait; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        callback.Invoke();
     }
 }
