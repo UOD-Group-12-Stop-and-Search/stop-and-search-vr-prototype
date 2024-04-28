@@ -19,7 +19,8 @@ namespace UI.QuestioningUI
         private GameObject m_questionHostPrefab = null!;
 
         [SerializeField]
-        private Transform m_questionHostHost = null!;
+        private Transform[] m_questionHostHosts = null!;
+        private int m_currentQuestionHostHost = 0;
 
         [SerializeField]
         private Transform m_conversationHost = null!;
@@ -32,9 +33,13 @@ namespace UI.QuestioningUI
         {
             foreach (PlayerQuestion question in dialogue.Questions)
             {
-                PlayerQuestionHost questionHost = Instantiate(m_questionHostPrefab, m_questionHostHost).GetComponent<PlayerQuestionHost>();
+                PlayerQuestionHost questionHost = Instantiate(m_questionHostPrefab, m_questionHostHosts[m_currentQuestionHostHost]).GetComponent<PlayerQuestionHost>();
                 questionHost.Init(this, question);
                 m_questionHosts.Add(questionHost);
+
+                m_currentQuestionHostHost++;
+                if (m_currentQuestionHostHost >= m_questionHostHosts.Length)
+                    m_currentQuestionHostHost = 0;
             }
         }
 
