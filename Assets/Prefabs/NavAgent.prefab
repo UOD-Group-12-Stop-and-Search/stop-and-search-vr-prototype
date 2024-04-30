@@ -266,6 +266,7 @@ MonoBehaviour:
   StateMachine: {fileID: 0}
   m_questioningUIPrefab: {fileID: 8055180790466845167, guid: d0653c5bb120e9448ba5ecb9edaeb8d5, type: 3}
   m_questioningUiCanvas: {fileID: 1699765321254326520}
+  m_avoidMeAreaPrefab: {fileID: 6763978703165949569, guid: 65706bc417e2a8743a66c8ffb7582ac9, type: 3}
 --- !u!114 &856153343390181598
 MonoBehaviour:
   m_ObjectHideFlags: 0
