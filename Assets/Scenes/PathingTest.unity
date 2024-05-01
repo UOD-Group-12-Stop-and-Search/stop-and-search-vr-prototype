@@ -612,10 +612,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 2147483648
   m_DistanceCalculationMode: 1
-  m_SelectMode: 1
-  m_FocusMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 0
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
@@ -1419,6 +1419,7 @@ GameObject:
   - component: {fileID: 308084631}
   - component: {fileID: 308084630}
   - component: {fileID: 308084635}
+  - component: {fileID: 308084636}
   m_Layer: 0
   m_Name: LeftBackSpawner
   m_TagString: Untagged
@@ -1594,6 +1595,21 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &308084636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308084628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d81cfbee37489288797b45e919bc7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeObject: {fileID: 4226781940885119610, guid: 10a535668392d2c428dbe8c67d96d309, type: 3}
+  drugObject: {fileID: 4226781940885119610, guid: f31835c3787fd5f4b91941b3293c7763, type: 3}
+  itemObject: {fileID: 4226781940885119610, guid: 962fcca793b87334d83055c3cf612aec, type: 3}
 --- !u!1 &349157930
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,10 +1872,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 2147483648
   m_DistanceCalculationMode: 1
-  m_SelectMode: 1
-  m_FocusMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 0
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
@@ -2774,6 +2790,7 @@ GameObject:
   - component: {fileID: 744116403}
   - component: {fileID: 744116402}
   - component: {fileID: 744116407}
+  - component: {fileID: 744116408}
   m_Layer: 0
   m_Name: LeftFrontSpawner
   m_TagString: Untagged
@@ -2949,6 +2966,21 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &744116408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744116400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d81cfbee37489288797b45e919bc7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeObject: {fileID: 4226781940885119610, guid: 10a535668392d2c428dbe8c67d96d309, type: 3}
+  drugObject: {fileID: 4226781940885119610, guid: f31835c3787fd5f4b91941b3293c7763, type: 3}
+  itemObject: {fileID: 4226781940885119610, guid: 962fcca793b87334d83055c3cf612aec, type: 3}
 --- !u!1 &794324653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,10 +3211,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 2147483648
   m_DistanceCalculationMode: 1
-  m_SelectMode: 1
-  m_FocusMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 0
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
@@ -4374,6 +4406,7 @@ GameObject:
   - component: {fileID: 1322935594}
   - component: {fileID: 1322935593}
   - component: {fileID: 1322935595}
+  - component: {fileID: 1322935596}
   m_Layer: 0
   m_Name: RightBackSpawner
   m_TagString: Untagged
@@ -4549,6 +4582,21 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1322935596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322935588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d81cfbee37489288797b45e919bc7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeObject: {fileID: 4226781940885119610, guid: 10a535668392d2c428dbe8c67d96d309, type: 3}
+  drugObject: {fileID: 4226781940885119610, guid: f31835c3787fd5f4b91941b3293c7763, type: 3}
+  itemObject: {fileID: 4226781940885119610, guid: 962fcca793b87334d83055c3cf612aec, type: 3}
 --- !u!1 &1327431311
 GameObject:
   m_ObjectHideFlags: 0
@@ -5324,6 +5372,7 @@ GameObject:
   - component: {fileID: 2007969583}
   - component: {fileID: 2007969582}
   - component: {fileID: 2007969587}
+  - component: {fileID: 2007969588}
   m_Layer: 0
   m_Name: RightFrontSpawner
   m_TagString: Untagged
@@ -5499,6 +5548,21 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &2007969588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007969580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d81cfbee37489288797b45e919bc7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeObject: {fileID: 4226781940885119610, guid: 10a535668392d2c428dbe8c67d96d309, type: 3}
+  drugObject: {fileID: 4226781940885119610, guid: f31835c3787fd5f4b91941b3293c7763, type: 3}
+  itemObject: {fileID: 4226781940885119610, guid: 962fcca793b87334d83055c3cf612aec, type: 3}
 --- !u!1 &2024175346
 GameObject:
   m_ObjectHideFlags: 0
