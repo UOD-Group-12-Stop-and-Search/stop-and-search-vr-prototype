@@ -9,6 +9,11 @@ namespace Dialogue
     {
         private Dictionary<string, int> m_requirements = new Dictionary<string, int>();
 
+        public void SetValue(NameIntPair pair)
+        {
+            m_requirements[pair.Name] = pair.Value;
+        }
+
         public void ReportRequirement(ResponseResult requirement)
         {
             // ensure the key exists
@@ -50,7 +55,7 @@ namespace Dialogue
                 }
             }
 
-            return meetsSoftRequirements && meetsHardRequirements;
+            return meetsHardRequirements && meetsSoftRequirements;
         }
 
         private bool CheckMeetsRequirement(DialogueRequirement requirement)
@@ -84,6 +89,11 @@ namespace Dialogue
                 default:
                     return false;
             }
+        }
+
+        public void ClearValues()
+        {
+            m_requirements.Clear();
         }
     }
 }

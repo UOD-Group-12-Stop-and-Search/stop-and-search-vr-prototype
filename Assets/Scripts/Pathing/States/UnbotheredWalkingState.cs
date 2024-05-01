@@ -9,6 +9,8 @@ namespace Pathing.States
     [RequireComponent(typeof(NavMeshAgent))]
     public class UnbotheredWalkingState : StateBehaviour
     {
+        private Vector3 m_targetPosition = Vector3.zero;
+
         [BindComponent]
         private NavMeshAgent m_agent;
 
@@ -37,10 +39,12 @@ namespace Pathing.States
 
         public override void OnSwitchTo(StateBehaviour oldBehaviour)
         {
+            m_agent.SetDestination(m_targetPosition);
         }
 
         public void InitMovement(Vector3 targetPosition)
         {
+            m_targetPosition = targetPosition;
             ReferenceResolver.ResolveReferences(this);
 
             float scale = m_scale.GetRandomInRange();

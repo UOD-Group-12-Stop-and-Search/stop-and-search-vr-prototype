@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dialogue.InvokableResponses;
+using UI.QuestioningUI;
 using UnityEngine;
 
 namespace Dialogue
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/Dialogue/PlayerQuestion")]
+    [CreateAssetMenu(menuName = "ScriptableObjects/Dialogue/Questions/PlayerQuestion", order = 0)]
     public class PlayerQuestion : ScriptableObject
     {
         [SerializeField]
@@ -16,7 +18,7 @@ namespace Dialogue
         public string ButtonText = String.Empty;
         public string MessageText = String.Empty;
 
-        public virtual void PreInvokeAction(){}
-        public virtual void PostInvokeAction(){}
+        public virtual void PreInvokeAction(QuestioningPanel panel){}
+        public virtual void PostInvokeAction(QuestioningPanel panel){}
     }
 }

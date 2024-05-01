@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec92d67db3354b91bab2ea0f880c6a43, type: 3}
+  m_Name: BaseDialogue
+  m_EditorClassIdentifier: 
+  Questions:
+  - {fileID: 11400000, guid: fa47df1fc272a2f4c88af33363abe464, type: 2}
+  - {fileID: 11400000, guid: 6edfb00181bc52d44b11ab914bda8801, type: 2}
+  - {fileID: 11400000, guid: 479410e75189c2a41820f694719775f5, type: 2}
+  - {fileID: 11400000, guid: f2eccb4acf242f944b35a1eb888e2583, type: 2}
+  - {fileID: 11400000, guid: e8d7491bff2243741bd3bec076dcf525, type: 2}
+  - {fileID: 11400000, guid: 1c305fe5bb8726348a3ba9232fc828ec, type: 2}
+  StartingText:
+  - ConversationSide: 0
+    PossibleTextEntries:
+    - Hello there!
+    - Greetings!
+    - Oi You
+    - Haiiii :3
+    - Hello
+  - ConversationSide: 1
+    PossibleTextEntries:
+    - Hello
+    - What?
+    - Me?
+    - Huh?
+    - Yes?
+    - What do you want?
+  StartingValues:
+  - Name: compliance
+    Value: 2

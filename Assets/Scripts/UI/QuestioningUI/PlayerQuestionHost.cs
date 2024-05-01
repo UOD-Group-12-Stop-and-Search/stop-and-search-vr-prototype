@@ -10,10 +10,10 @@ namespace UI.QuestioningUI
     public class PlayerQuestionHost : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI m_questionText;
+        private TextMeshProUGUI m_questionText = null!;
 
         [SerializeField]
-        private Button m_button;
+        private Button m_button = null!;
 
         private QuestioningPanel Host { get; set; } = null!;
         private PlayerQuestion Question { get; set; } = null!;
@@ -34,7 +34,8 @@ namespace UI.QuestioningUI
 
         public void Refresh()
         {
-            m_button.interactable = Host.RequirementsManager.CheckMeetsRequirements(Question.Requirements);
+            bool meetsRequirements = Host.RequirementsManager.CheckMeetsRequirements(Question.Requirements);
+            m_button.interactable = meetsRequirements;
         }
     }
 }
