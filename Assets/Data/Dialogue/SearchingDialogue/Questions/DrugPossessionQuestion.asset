@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c24de2fbcb4bbd88ab72a16252e980, type: 3}
+  m_Name: DrugPossessionQuestion
+  m_EditorClassIdentifier: 
+  Requirements:
+  - RequirementLevel: 0
+    RequirementMode: 4
+    Name: knows_drug_possession
+    Value: 0
+  Responses:
+  - {fileID: 11400000, guid: 2f5423212dcad78459b38f06044baa58, type: 2}
+  - {fileID: 11400000, guid: 31ea1a78da9eb954fbfdd67215da8757, type: 2}
+  - {fileID: 11400000, guid: 2becd9b4e5e3aab49bcbe8c23a05f5bd, type: 2}
+  - {fileID: 11400000, guid: 934fd970cff08ca4ebe0876d348ae4d2, type: 2}
+  ButtonText: Drug Possession?
+  MessageText: Do you have any drugs on you?

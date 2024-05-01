@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Dialogue;
+using Dialogue.InvokableResponses;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -37,6 +39,8 @@ namespace UI.QuestioningUI
         [SerializeField]
         private Dialogue.Dialogue? m_initialDialogue;
 
+        public UnityEvent QuestioningEnding = new UnityEvent();
+
         private void Start()
         {
             if (m_initialDialogue != null)
@@ -51,6 +55,9 @@ namespace UI.QuestioningUI
 
         public void PopulatePanel(Dialogue.Dialogue dialogue)
         {
+            ClearPanel();
+            dialogue.StartingValues.ForEach(RequirementsManager.SetValue);
+
             foreach (PlayerQuestion question in dialogue.Questions)
             {
                 PlayerQuestionHost questionHost = Instantiate(m_questionHostPrefab, m_questionHostHosts[m_currentQuestionHostHost]).GetComponent<PlayerQuestionHost>();
@@ -62,11 +69,39 @@ namespace UI.QuestioningUI
                     m_currentQuestionHostHost = 0;
             }
 
-            if (dialogue.PotentialStartingText.Length > 0)
+            foreach (TargetedText targetedText in dialogue.StartingText)
             {
-                string text = dialogue.PotentialStartingText.GetRandomElement();
-                ReportConversationText(text, ConversationSide.NPC);
+                ReportConversationText(targetedText.PossibleTextEntries.GetRandomElement(), targetedText.ConversationSide);
             }
+
+            // force rebuild the ui after a couple frames
+            this.WaitFramesThenExecute(2, () =>
+            {
+                foreach (Transform questionHostHost in m_questionHostHosts)
+                {
+                    LayoutRebuilder.MarkLayoutForRebuild((questionHostHost as RectTransform)!);
+                }
+            });
+        }
+
+        public void ClearPanel()
+        {
+            // clear existing panel
+            m_questionHosts.ForEach(h => Destroy(h.gameObject));
+            m_questionHosts.Clear();
+
+            // set next question host to default
+            m_currentQuestionHostHost = 0;
+
+            for (int i = 0; i < m_conversationHost.childCount; i++)
+            {
+                Destroy(m_conversationHost.GetChild(i).gameObject);
+            }
+        }
+
+        public void ExitQuestioning()
+        {
+            QuestioningEnding.Invoke();
         }
 
         public void OnQuestionClicked(PlayerQuestion question)
@@ -80,12 +115,12 @@ namespace UI.QuestioningUI
             }
             else
             {
-                // get random from valid
-                validResponse = responses.GetRandomElement();
+                // get first from valid
+                validResponse = responses.First();
             }
 
             // pre question action
-            question.PreInvokeAction();
+            question.PreInvokeAction(this);
 
             // report player question text
             ReportConversationText(question.MessageText, ConversationSide.PLAYER);
@@ -106,17 +141,17 @@ namespace UI.QuestioningUI
             }
 
             // post question action
-            question.PostInvokeAction();
+            question.PostInvokeAction(this);
 
             // refresh all question buttons
             m_questionHosts.ForEach((h) => h.Refresh());
 
             // force scroll to bottom for this and the next few frames
             // ensures that everything works with the layout jank at the end of ReportConversationText
-            m_conversationScrollView.normalizedPosition = Vector2.zero;
-            this.WaitFramesThenExecute(1, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
-            this.WaitFramesThenExecute(2, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
-            this.WaitFramesThenExecute(3, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
+            // m_conversationScrollView.normalizedPosition = Vector2.zero;
+            // this.WaitFramesThenExecute(1, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
+            // this.WaitFramesThenExecute(2, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
+            // this.WaitFramesThenExecute(3, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
             this.WaitFramesThenExecute(4, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
         }
 
@@ -141,13 +176,7 @@ namespace UI.QuestioningUI
             // for some reason the layout fucks up unless this is done like this
             // the 2 frame delay is deliberate
             // 1 and 0 frame delays do nothing
-            this.WaitFramesThenExecute(2, () => LayoutRebuilder.MarkLayoutForRebuild((instance.transform as RectTransform)!));
+            this.WaitFramesThenExecute(2, () => LayoutRebuilder.MarkLayoutForRebuild((instance == null ? null : (RectTransform)instance.transform)!));
         }
-    }
-
-    public enum ConversationSide
-    {
-        PLAYER,
-        NPC,
     }
 }

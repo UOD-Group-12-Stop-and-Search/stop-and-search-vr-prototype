@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c24de2fbcb4bbd88ab72a16252e980, type: 3}
+  m_Name: WeaponsQuestion
+  m_EditorClassIdentifier: 
+  Requirements:
+  - RequirementLevel: 0
+    RequirementMode: 4
+    Name: knows_weapon
+    Value: 0
+  Responses:
+  - {fileID: 11400000, guid: e75f9973ffc5ea4439a7c5449bef9d5f, type: 2}
+  - {fileID: 11400000, guid: ccd96c6d79f9854458dd0009ca43471a, type: 2}
+  - {fileID: 11400000, guid: 7791cbedc9403c9468008c9a39e3f47b, type: 2}
+  - {fileID: 11400000, guid: 934fd970cff08ca4ebe0876d348ae4d2, type: 2}
+  ButtonText: Weapons?
+  MessageText: Do you have any weapons on you?
