@@ -10,5 +10,7 @@ namespace Dialogue
         public List<PlayerQuestion> Questions = new List<PlayerQuestion>();
 
         public string[] PotentialStartingText = Array.Empty<string>();
+
+        public List<NameIntPair> StartingValues = new List<NameIntPair>();
     }
 }

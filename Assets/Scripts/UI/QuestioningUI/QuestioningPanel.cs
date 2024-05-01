@@ -51,6 +51,8 @@ namespace UI.QuestioningUI
 
         public void PopulatePanel(Dialogue.Dialogue dialogue)
         {
+            dialogue.StartingValues.ForEach(RequirementsManager.SetValue);
+            
             foreach (PlayerQuestion question in dialogue.Questions)
             {
                 PlayerQuestionHost questionHost = Instantiate(m_questionHostPrefab, m_questionHostHosts[m_currentQuestionHostHost]).GetComponent<PlayerQuestionHost>();
@@ -73,7 +75,7 @@ namespace UI.QuestioningUI
         {
             // get a random response that meets its requirements
             NpcResponse? validResponse;
-            NpcResponse[] responses = question.Responses.Where(r => RequirementsManager.CheckMeetsRequirements(r.Requirements)).ToArray();
+            NpcResponse[] responses = question.Responses.Where(r => RequirementsManager.CheckMeetsRequirements(r.Requirements).All()).ToArray();
             if (responses.Length == 0)
             {
                 validResponse = null;

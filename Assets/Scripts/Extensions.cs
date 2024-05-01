@@ -36,4 +36,6 @@ public static class Extensions
 
         callback.Invoke();
     }
+
+    public static bool All(this (bool, bool) tuple) => tuple.Item1 && tuple.Item2;
 }

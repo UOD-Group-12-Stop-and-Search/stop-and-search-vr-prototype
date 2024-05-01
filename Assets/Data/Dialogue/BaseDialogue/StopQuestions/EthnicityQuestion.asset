@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c24de2fbcb4bbd88ab72a16252e980, type: 3}
+  m_Name: EthnicityQuestion
+  m_EditorClassIdentifier: 
+  Requirements:
+  - RequirementLevel: 0
+    RequirementMode: 4
+    Name: knows_ethnicity
+    Value: 0
+  Responses:
+  - {fileID: 11400000, guid: 680e2c095a92b48418221d465c40272f, type: 2}
+  - {fileID: 11400000, guid: 680e2c095a92b48418221d465c40272f, type: 2}
+  ButtonText: 
+  MessageText: 
