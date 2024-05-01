@@ -108,7 +108,7 @@ namespace UI.QuestioningUI
         {
             // get a random response that meets its requirements
             NpcResponse? validResponse;
-            NpcResponse[] responses = question.Responses.Where(r => RequirementsManager.CheckMeetsRequirements(r.Requirements).All()).ToArray();
+            NpcResponse[] responses = question.Responses.Where(r => RequirementsManager.CheckMeetsRequirements(r.Requirements)).ToArray();
             if (responses.Length == 0)
             {
                 validResponse = null;
@@ -176,7 +176,7 @@ namespace UI.QuestioningUI
             // for some reason the layout fucks up unless this is done like this
             // the 2 frame delay is deliberate
             // 1 and 0 frame delays do nothing
-            this.WaitFramesThenExecute(2, () => LayoutRebuilder.MarkLayoutForRebuild((instance.transform as RectTransform ?? null)!));
+            this.WaitFramesThenExecute(2, () => LayoutRebuilder.MarkLayoutForRebuild((instance == null ? null : (RectTransform)instance.transform)!));
         }
     }
 }

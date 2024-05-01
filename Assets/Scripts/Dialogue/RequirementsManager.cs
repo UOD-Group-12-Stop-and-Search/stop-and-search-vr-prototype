@@ -35,7 +35,7 @@ namespace Dialogue
             }
         }
 
-        public (bool meetsHardRequirements, bool meetsSoftRequirements) CheckMeetsRequirements(IEnumerable<DialogueRequirement> requirements)
+        public bool CheckMeetsRequirements(IEnumerable<DialogueRequirement> requirements)
         {
             bool meetsSoftRequirements = true;
             bool meetsHardRequirements = true;
@@ -55,7 +55,7 @@ namespace Dialogue
                 }
             }
 
-            return (meetsSoftRequirements, meetsHardRequirements);
+            return meetsHardRequirements && meetsSoftRequirements;
         }
 
         private bool CheckMeetsRequirement(DialogueRequirement requirement)

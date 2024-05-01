@@ -34,9 +34,8 @@ namespace UI.QuestioningUI
 
         public void Refresh()
         {
-            (bool meetsHardRequirements, bool meetsSoftRequirements) = Host.RequirementsManager.CheckMeetsRequirements(Question.Requirements);
-            m_button.gameObject.SetActive(meetsHardRequirements);
-            m_button.interactable = meetsSoftRequirements;
+            bool meetsRequirements = Host.RequirementsManager.CheckMeetsRequirements(Question.Requirements);
+            m_button.interactable = meetsRequirements;
         }
     }
 }
