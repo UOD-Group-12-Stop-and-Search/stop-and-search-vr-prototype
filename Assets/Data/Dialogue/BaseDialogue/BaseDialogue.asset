@@ -17,11 +17,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6edfb00181bc52d44b11ab914bda8801, type: 2}
   - {fileID: 11400000, guid: 479410e75189c2a41820f694719775f5, type: 2}
   - {fileID: 11400000, guid: f2eccb4acf242f944b35a1eb888e2583, type: 2}
-  PotentialStartingText:
-  - Huh?
-  - What?
-  - Oh. Hello.
-  - What is it?
+  - {fileID: 11400000, guid: e8d7491bff2243741bd3bec076dcf525, type: 2}
+  - {fileID: 11400000, guid: 1c305fe5bb8726348a3ba9232fc828ec, type: 2}
+  StartingText:
+  - ConversationSide: 0
+    PossibleTextEntries:
+    - Hello there!
+    - Greetings!
+    - Oi You
+    - Haiiii :3
+    - Hello
+  - ConversationSide: 1
+    PossibleTextEntries:
+    - Hello
+    - What?
+    - Me?
+    - Huh?
+    - Yes?
+    - What do you want?
   StartingValues:
   - Name: compliance
     Value: 2

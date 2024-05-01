@@ -24,4 +24,4 @@ MonoBehaviour:
     RequirementMode: 4
     Name: knows_address
     Value: 0
-  Text: My name is %ADDRESS%
+  Text: My address is %ADDRESS%

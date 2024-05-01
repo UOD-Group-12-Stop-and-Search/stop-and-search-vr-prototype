@@ -90,5 +90,10 @@ namespace Dialogue
                     return false;
             }
         }
+
+        public void ClearValues()
+        {
+            m_requirements.Clear();
+        }
     }
 }

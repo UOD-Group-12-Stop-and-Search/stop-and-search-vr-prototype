@@ -19,6 +19,6 @@ MonoBehaviour:
     Value: 0
   Responses:
   - {fileID: 11400000, guid: 680e2c095a92b48418221d465c40272f, type: 2}
-  - {fileID: 11400000, guid: 680e2c095a92b48418221d465c40272f, type: 2}
-  ButtonText: 
-  MessageText: 
+  - {fileID: 11400000, guid: c002dc19a0a25cc4c9eb4ffa290ed9c7, type: 2}
+  ButtonText: Ethnicity
+  MessageText: What is your ethnicity?

@@ -19,5 +19,6 @@ MonoBehaviour:
     Value: 0
   Responses:
   - {fileID: 11400000, guid: 680e2c095a92b48418221d465c40272f, type: 2}
+  - {fileID: 11400000, guid: 91ef8a29383ccc54aacc6c02a515f6f5, type: 2}
   ButtonText: Date of Birth?
   MessageText: What's your date of birth?
