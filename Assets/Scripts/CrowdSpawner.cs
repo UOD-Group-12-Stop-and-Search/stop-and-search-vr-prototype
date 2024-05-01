@@ -2,6 +2,7 @@
 using System.Collections;
 using BeanCore.Unity.ReferenceResolver;
 using BeanCore.Unity.ReferenceResolver.Attributes;
+using Items;
 using JetBrains.Annotations;
 using Pathing;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class CrowdSpawner : ReferenceResolvedBehaviour
     [SerializeField] private AnimationCurve m_spawnCountCurve;
 
     [SerializeField] private AgentTarget[] m_agentTargets;
+
+    [SerializeField] private NpcItemController m_npcItemController;
 
     [BindComponent] private AgentTarget m_startPosition;
 
@@ -58,6 +61,16 @@ public class CrowdSpawner : ReferenceResolvedBehaviour
         return agentTarget.GetRandomTargetPosition();
     }
 
+    private void GenerateItem(GameObject npc)
+    {
+        if (!m_npcItemController)
+        {
+            Debug.LogError("No NpcItemController found");
+            return;
+        }
+        m_npcItemController.AttachItem(npc, "ItemHolster");
+    }
+
     private IEnumerator SpawnLoop()
     {
         while (true)
@@ -81,6 +94,7 @@ public class CrowdSpawner : ReferenceResolvedBehaviour
                 // secondary agents should match the speed of the first agent to stay clumped
                 CrowdAgent newAgent = SpawnSingleAgent();
                 newAgent.MatchSpeed(firstAgent);
+                GenerateItem(newAgent.gameObject);
             }
         }
     }
