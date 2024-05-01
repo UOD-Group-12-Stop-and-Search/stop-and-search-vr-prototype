@@ -1,5 +1,6 @@
 ﻿using System;
 using BeanCore.Unity.ReferenceResolver.Attributes;
+using UI.QuestioningUI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -25,28 +26,34 @@ namespace Pathing.States
 
         public override void OnSwitchAway(StateBehaviour newBehaviour)
         {
-            m_agent.enabled = true;
-            
             if (m_questioningUiInstance != null)
                 Destroy(m_questioningUiInstance);
-            
+
             if (m_avoidMeInstance != null)
                 Destroy(m_avoidMeInstance);
+
+            m_agent.enabled = true;
         }
 
         public override void OnSwitchTo(StateBehaviour oldBehaviour)
         {
-            this.RunResolve();
-            
+            RunResolve();
+
             m_questioningUiInstance = Instantiate(m_questioningUIPrefab, m_questioningUiCanvas);
+            m_questioningUiInstance.GetComponentInChildren<QuestioningPanel>().QuestioningEnding.AddListener(OnQuestioningEnding);
 
             // create the avoidMe
             // we don't want it to be parented to this object as it will keep refreshing the navmesh if we do
             m_avoidMeInstance = Instantiate(m_avoidMeAreaPrefab);
             m_avoidMeInstance.transform.position = transform.position;
-            
+
             // disable interaction with the avoidMe
             m_agent.enabled = false;
+        }
+
+        private void OnQuestioningEnding()
+        {
+            StateMachine.CurrentState = GetComponent<UnbotheredWalkingState>();
         }
 
         private void Update()

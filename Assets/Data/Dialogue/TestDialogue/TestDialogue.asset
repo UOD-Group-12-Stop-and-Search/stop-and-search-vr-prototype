@@ -16,7 +16,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 15473a5e368a3fb4c910f5eb2a994c6d, type: 2}
   - {fileID: 11400000, guid: e92e14b2867ec3d4c9720085b51ae83f, type: 2}
   - {fileID: 11400000, guid: 2c0ce0d060ee0334fab51722be5d0311, type: 2}
-  PotentialStartingText:
-  - Greetings 1
-  - Greetings 2
-  - Greetings 3
+  StartingText:
+  - ConversationSide: 0
+    PossibleTextEntries:
+    - Greetings
+  - ConversationSide: 1
+    PossibleTextEntries:
+    - Wahoo
+  StartingValues: []
