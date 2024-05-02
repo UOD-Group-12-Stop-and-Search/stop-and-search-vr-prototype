@@ -36,7 +36,8 @@ public class Face : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ebObject = GameObject.Find("eyebrowPoint").transform;
+        lObject = this.transform.GetChild(7).gameObject.transform;
+        ebObject = this.transform.GetChild(8).gameObject.transform;
         eyebrowL = this.transform.GetChild(0).gameObject;
         eblOrigin = eyebrowL.transform.rotation;
         eyebrowR = this.transform.GetChild(1).gameObject;
