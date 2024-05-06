@@ -1,4 +1,5 @@
-﻿using UI.QuestioningUI;
+﻿using Pathing.States;
+using UI.QuestioningUI;
 using UnityEngine;
 
 namespace Dialogue.InvokableQuestions
@@ -8,8 +9,8 @@ namespace Dialogue.InvokableQuestions
     {
         public override void PreInvokeAction(QuestioningPanel panel)
         {
-            // need an actual game end function here
-            Debug.Log("Mods! Arrest this man!");
+            panel.ExitQuestioning();
+            panel.Host.StateMachine.CurrentState = panel.Host.GetComponent<ArrestedState>();
         }
     }
 }

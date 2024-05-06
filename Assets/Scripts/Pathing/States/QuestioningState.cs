@@ -24,7 +24,7 @@ namespace Pathing.States
         [SerializeField]
         private GameObject m_avoidMeAreaPrefab = null!;
 
-        public override void OnSwitchAway(StateBehaviour newBehaviour)
+        public override void OnSwitchAway(StateBehaviour? newBehaviour)
         {
             if (m_questioningUiInstance != null)
                 Destroy(m_questioningUiInstance);
@@ -35,12 +35,13 @@ namespace Pathing.States
             m_agent.enabled = true;
         }
 
-        public override void OnSwitchTo(StateBehaviour oldBehaviour)
+        public override void OnSwitchTo(StateBehaviour? oldBehaviour)
         {
             RunResolve();
 
             m_questioningUiInstance = Instantiate(m_questioningUIPrefab, m_questioningUiCanvas);
-            m_questioningUiInstance.GetComponentInChildren<QuestioningPanel>().QuestioningEnding.AddListener(OnQuestioningEnding);
+            QuestioningPanel panel = m_questioningUiInstance.GetComponentInChildren<QuestioningPanel>();
+            panel.QuestioningEnding.AddListener(OnQuestioningEnding);
 
             // create the avoidMe
             // we don't want it to be parented to this object as it will keep refreshing the navmesh if we do

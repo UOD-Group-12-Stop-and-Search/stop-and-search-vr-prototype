@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dialogue;
 using Dialogue.InvokableResponses;
+using Pathing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -36,6 +37,8 @@ namespace UI.QuestioningUI
 
         public RequirementsManager RequirementsManager { get; } = new RequirementsManager();
 
+        public CrowdAgent Host { get; private set; } = null!;
+
         [SerializeField]
         private Dialogue.Dialogue? m_initialDialogue;
 
@@ -43,6 +46,8 @@ namespace UI.QuestioningUI
 
         private void Start()
         {
+            Host = GetComponentInParent<CrowdAgent>();
+
             if (m_initialDialogue != null)
             {
                 PopulatePanel(m_initialDialogue);
