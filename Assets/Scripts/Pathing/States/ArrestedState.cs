@@ -23,6 +23,9 @@ namespace Pathing.States
         {
             RunResolve();
             m_agent.enabled = true;
+            
+            GameObject target = GameObject.FindWithTag("ArrestedMoveTo");
+            m_agent.SetDestination(target.transform.position);
 
             Instantiate(m_arrestedIconPrefab, m_arrestedIconHost);
         }

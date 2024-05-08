@@ -27,7 +27,14 @@ namespace Pathing.States
         public override void OnSwitchAway(StateBehaviour? newBehaviour)
         {
             if (m_questioningUiInstance != null)
-                Destroy(m_questioningUiInstance);
+            {
+                m_questioningUiInstance.SetActive(false);
+
+                // ew disgusting
+                // starting a coroutine on a different object since this one will be disabled immediatley after this call
+                GameObject instanceCache = m_questioningUiInstance; // create a new reference in case m_questioningUiInstance is overwritten within the gap
+                StateMachine.WaitFramesThenExecute(5, () => Destroy(instanceCache));
+            }
 
             if (m_avoidMeInstance != null)
                 Destroy(m_avoidMeInstance);

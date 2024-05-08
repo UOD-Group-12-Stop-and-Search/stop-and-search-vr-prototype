@@ -66,7 +66,8 @@ namespace Pathing.States
 
         public void TriggerQuestioning()
         {
-            StateMachine.CurrentState = GetComponent<QuestioningState>();
+            if (StateMachine.CurrentState == this)
+                StateMachine.CurrentState = GetComponent<QuestioningState>();
         }
     }
 }
