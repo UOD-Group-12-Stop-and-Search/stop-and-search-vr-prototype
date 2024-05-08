@@ -9,14 +9,15 @@ namespace Pathing.States
     [RequireComponent(typeof(StateBehaviour))]
     public abstract class StateBehaviour : ReferenceResolvedBehaviour
     {
-        [BindComponent] public StateMachine StateMachine;
+        [HideInInspector]
+        [BindComponent] public StateMachine StateMachine = null!;
 
         private void Awake()
         {
             enabled = false;
         }
 
-        public abstract void OnSwitchAway([CanBeNull] StateBehaviour newBehaviour);
-        public abstract void OnSwitchTo([CanBeNull] StateBehaviour oldBehaviour);
+        public abstract void OnSwitchAway(StateBehaviour? newBehaviour);
+        public abstract void OnSwitchTo(StateBehaviour? oldBehaviour);
     }
 }

@@ -32,6 +32,8 @@ namespace Pathing
 
         [SerializeField] private MeshRenderer m_bodyRenderer;
 
+        public StateMachine StateMachine => m_stateMachine;
+
         public void InitAgent(Vector3 targetPosition)
         {
             ReferenceResolver.ResolveReferences(this);

@@ -19,6 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 914bcb12872944a4f8a48949fe202223, type: 2}
   - {fileID: 11400000, guid: 07ec3ebe8f701ee45a9cba8b460daab5, type: 2}
   - {fileID: 11400000, guid: 9392b8a6dba8fb544b6eb5172e23f60e, type: 2}
+  - {fileID: 11400000, guid: 1c305fe5bb8726348a3ba9232fc828ec, type: 2}
   StartingText:
   - ConversationSide: 0
     PossibleTextEntries:
