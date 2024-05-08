@@ -32,12 +32,12 @@ namespace Pathing.States
             m_interactable.activated.AddListener((_) => TriggerQuestioning());
         }
 
-        public override void OnSwitchAway(StateBehaviour newBehaviour)
+        public override void OnSwitchAway(StateBehaviour? newBehaviour)
         {
             m_agent.ResetPath();
         }
 
-        public override void OnSwitchTo(StateBehaviour oldBehaviour)
+        public override void OnSwitchTo(StateBehaviour? oldBehaviour)
         {
             m_agent.SetDestination(m_targetPosition);
         }
@@ -66,7 +66,8 @@ namespace Pathing.States
 
         public void TriggerQuestioning()
         {
-            StateMachine.CurrentState = GetComponent<QuestioningState>();
+            if (StateMachine.CurrentState == this)
+                StateMachine.CurrentState = GetComponent<QuestioningState>();
         }
     }
 }

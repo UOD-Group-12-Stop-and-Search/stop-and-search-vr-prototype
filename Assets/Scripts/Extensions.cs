@@ -24,7 +24,8 @@ public static class Extensions
 
     public static void WaitFramesThenExecute(this MonoBehaviour behaviour, int framesToWait, Action callback)
     {
-        behaviour.StartCoroutine(WaitFramesThenExecuteCoroutine(framesToWait, callback));
+        if (behaviour != null && behaviour.isActiveAndEnabled)
+            behaviour.StartCoroutine(WaitFramesThenExecuteCoroutine(framesToWait, callback));
     }
 
     private static IEnumerator WaitFramesThenExecuteCoroutine(int framesToWait, Action callback)

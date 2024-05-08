@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dialogue;
 using Dialogue.InvokableResponses;
+using Pathing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,6 +15,8 @@ namespace UI.QuestioningUI
 {
     public class QuestioningPanel : MonoBehaviour
     {
+        private bool m_hasExited = false;
+
         [SerializeField]
         private GameObject m_npcConversationTextPrefab = null!;
 
@@ -36,6 +39,8 @@ namespace UI.QuestioningUI
 
         public RequirementsManager RequirementsManager { get; } = new RequirementsManager();
 
+        public CrowdAgent Host { get; private set; } = null!;
+
         [SerializeField]
         private Dialogue.Dialogue? m_initialDialogue;
 
@@ -43,6 +48,8 @@ namespace UI.QuestioningUI
 
         private void Start()
         {
+            Host = GetComponentInParent<CrowdAgent>();
+
             if (m_initialDialogue != null)
             {
                 PopulatePanel(m_initialDialogue);
@@ -55,6 +62,9 @@ namespace UI.QuestioningUI
 
         public void PopulatePanel(Dialogue.Dialogue dialogue)
         {
+            if (m_hasExited)
+                return;
+
             ClearPanel();
             dialogue.StartingValues.ForEach(RequirementsManager.SetValue);
 
@@ -86,6 +96,9 @@ namespace UI.QuestioningUI
 
         public void ClearPanel()
         {
+            if (m_hasExited)
+                return;
+
             // clear existing panel
             m_questionHosts.ForEach(h => Destroy(h.gameObject));
             m_questionHosts.Clear();
@@ -101,6 +114,7 @@ namespace UI.QuestioningUI
 
         public void ExitQuestioning()
         {
+            m_hasExited = true;
             QuestioningEnding.Invoke();
         }
 
@@ -121,6 +135,9 @@ namespace UI.QuestioningUI
 
             // pre question action
             question.PreInvokeAction(this);
+
+            if (m_hasExited)
+                return;
 
             // report player question text
             ReportConversationText(question.MessageText, ConversationSide.PLAYER);
@@ -143,20 +160,26 @@ namespace UI.QuestioningUI
             // post question action
             question.PostInvokeAction(this);
 
+            if (m_hasExited)
+                return;
+
             // refresh all question buttons
             m_questionHosts.ForEach((h) => h.Refresh());
 
-            // force scroll to bottom for this and the next few frames
+            // force scroll to bottom after a short delay
             // ensures that everything works with the layout jank at the end of ReportConversationText
-            // m_conversationScrollView.normalizedPosition = Vector2.zero;
-            // this.WaitFramesThenExecute(1, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
-            // this.WaitFramesThenExecute(2, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
-            // this.WaitFramesThenExecute(3, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
-            this.WaitFramesThenExecute(4, () => m_conversationScrollView.normalizedPosition = Vector2.zero);
+            this.WaitFramesThenExecute(4, () =>
+            {
+                if (m_conversationScrollView != null)
+                    m_conversationScrollView.normalizedPosition = Vector2.zero;
+            });
         }
 
         private void ReportConversationText(string text, ConversationSide conversationSide)
         {
+            if (m_hasExited)
+                return;
+
             GameObject prefab;
             switch (conversationSide)
             {
@@ -176,7 +199,12 @@ namespace UI.QuestioningUI
             // for some reason the layout fucks up unless this is done like this
             // the 2 frame delay is deliberate
             // 1 and 0 frame delays do nothing
-            this.WaitFramesThenExecute(2, () => LayoutRebuilder.MarkLayoutForRebuild((instance == null ? null : (RectTransform)instance.transform)!));
+            this.WaitFramesThenExecute(2, () =>
+            {
+                if (instance == null)
+                    return;
+                LayoutRebuilder.MarkLayoutForRebuild((RectTransform)instance.transform);
+            });
         }
     }
 }

@@ -6,8 +6,7 @@ namespace Pathing.States
 {
     public class StateMachine : MonoBehaviour
     {
-        [CanBeNull]
-        private StateBehaviour m_currentState = null;
+        private StateBehaviour? m_currentState = null;
         
         public StateBehaviour CurrentState
         {
