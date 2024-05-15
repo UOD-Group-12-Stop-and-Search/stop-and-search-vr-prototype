@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dialogue;
 
 public class Face : MonoBehaviour
 {
@@ -14,12 +15,19 @@ public class Face : MonoBehaviour
     private Transform ebObject;
     [SerializeField] 
     private Transform lObject;
+
+    [SerializeField]
+    private Dialogue.DialogueManager DManager;
     
     // emotions
     [SerializeField] private float eHappy = 0;
     [SerializeField] private float eStress = 0;
     [SerializeField] private float eAnger = 0;
     [SerializeField] private float eFear = 0;
+    [SerializeField] private float eCompliance = 0;
+    
+    //Compliance
+    [SerializeField] private float eCompliMax = 2;
     
     //gameobjects of face
     private GameObject eyebrowL;
@@ -27,30 +35,25 @@ public class Face : MonoBehaviour
     private GameObject lipL;
     private GameObject lipR;
     
-    //Origins of face
-    private Quaternion eblOrigin;
-    private Quaternion ebrOrigin;
-    private Quaternion llOrigin;
-    private Quaternion lrOrigin;
-    
     // Start is called before the first frame update
     void Start()
     {
         lObject = this.transform.GetChild(7).gameObject.transform;
         ebObject = this.transform.GetChild(8).gameObject.transform;
         eyebrowL = this.transform.GetChild(0).gameObject;
-        eblOrigin = eyebrowL.transform.rotation;
         eyebrowR = this.transform.GetChild(1).gameObject;
-        ebrOrigin = eyebrowR.transform.rotation;
         lipL = this.transform.GetChild(5).gameObject;
-        llOrigin = lipL.transform.rotation;
         lipR = this.transform.GetChild(6).gameObject;
-        lrOrigin = lipR.transform.rotation;
+
+        DManager = GameObject.FindObjectOfType<Dialogue.DialogueManager>();
+        eCompliMax = DManager.SelectRandomDialogue().StartingValues[0].Value;
     }
 
     // Update is called once per frame
     void Update()
     {
+        eCompliance = DManager.SelectRandomDialogue().StartingValues[0].Value;
+        
         // Limit tilts
         if (eyebrowTilt > 1) { eyebrowTilt = 1; }
         if (eyebrowTilt < -1) { eyebrowTilt = -1; }
@@ -74,6 +77,17 @@ public class Face : MonoBehaviour
         //update look at positions
         ebObject.transform.localPosition = new Vector3(0, 0.7f + (eyebrowTilt * 0.15f), 0);
         lObject.transform.localPosition = new Vector3(0, -0.3f + (-lipTilt * 0.05f), 0);
+        
+        //handle compliance
+        if (eCompliance > (eCompliMax/2)*1)
+        {
+            eHappy = eCompliance - (eCompliMax/2)*1;
+        }
+        else if (eCompliance <= (eCompliMax/2)*1)
+        {
+            eHappy = 0;
+            eAnger = 1 - eCompliance;
+        }
         
         //handle emotion
         eyebrowTilt = eHappy + (-eAnger) + eFear;
