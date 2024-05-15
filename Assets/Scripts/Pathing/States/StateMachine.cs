@@ -6,6 +6,7 @@ namespace Pathing.States
 {
     public class StateMachine : MonoBehaviour
     {
+        [SerializeField]
         private StateBehaviour? m_currentState = null;
         
         public StateBehaviour CurrentState

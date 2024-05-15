@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Dialogue;
+using Pathing.States;
+using UI.QuestioningUI;
 
 public class Face : MonoBehaviour
 {
@@ -17,7 +19,15 @@ public class Face : MonoBehaviour
     private Transform lObject;
 
     [SerializeField]
-    private Dialogue.DialogueManager DManager;
+    private DialogueManager DManager;
+    [SerializeField]
+    private QuestioningPanel QP;
+    [SerializeField] 
+    private StateMachine SM;
+    [SerializeField] 
+    private QuestioningState QS;
+    [SerializeField] 
+    private GameObject NavAge;
     
     // emotions
     [SerializeField] private float eHappy = 0;
@@ -45,14 +55,31 @@ public class Face : MonoBehaviour
         lipL = this.transform.GetChild(5).gameObject;
         lipR = this.transform.GetChild(6).gameObject;
 
-        DManager = GameObject.FindObjectOfType<Dialogue.DialogueManager>();
+        DManager = GameObject.FindObjectOfType<DialogueManager>();
+
+        NavAge = GetComponentInParent<Transform>().gameObject.GetComponentInParent<StateMachine>().gameObject;
+        
+        SM = GetComponentInParent<Transform>().gameObject.GetComponentInParent<StateMachine>();
+        QS = GetComponentInParent<Transform>().gameObject.GetComponentInParent<QuestioningState>();
+        
         eCompliMax = DManager.SelectRandomDialogue().StartingValues[0].Value;
+        eCompliance = eCompliMax;
     }
 
     // Update is called once per frame
     void Update()
     {
-        eCompliance = DManager.SelectRandomDialogue().StartingValues[0].Value;
+        if (SM.CurrentState == QS)
+        {
+            try
+            {
+                QP = NavAge.transform.Find("QuestioningCanvasOrigin/CanvasHost/Canvas/QuestioningPanel(Clone)").gameObject.GetComponent<QuestioningPanel>();
+                
+                eCompliance = QP.GetComp();
+            }
+            catch
+            {}
+        }
         
         // Limit tilts
         if (eyebrowTilt > 1) { eyebrowTilt = 1; }
@@ -81,7 +108,8 @@ public class Face : MonoBehaviour
         //handle compliance
         if (eCompliance > (eCompliMax/2)*1)
         {
-            eHappy = eCompliance - (eCompliMax/2)*1;
+            eAnger = 0;
+            eHappy = eCompliance - (eCompliMax/2);
         }
         else if (eCompliance <= (eCompliMax/2)*1)
         {
