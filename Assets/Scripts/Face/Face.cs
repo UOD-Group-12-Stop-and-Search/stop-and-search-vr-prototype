@@ -17,16 +17,13 @@ public class Face : MonoBehaviour
     private Transform ebObject;
     [SerializeField] 
     private Transform lObject;
-
-    [SerializeField]
+    
     private DialogueManager DManager;
     [SerializeField]
     private QuestioningPanel QP;
-    [SerializeField] 
     private StateMachine SM;
-    [SerializeField] 
+    private StateBehaviour LastState;
     private QuestioningState QS;
-    [SerializeField] 
     private GameObject NavAge;
     
     // emotions
@@ -61,6 +58,8 @@ public class Face : MonoBehaviour
         
         SM = GetComponentInParent<Transform>().gameObject.GetComponentInParent<StateMachine>();
         QS = GetComponentInParent<Transform>().gameObject.GetComponentInParent<QuestioningState>();
+
+        LastState = SM.CurrentState;
         
         eCompliMax = DManager.SelectRandomDialogue().StartingValues[0].Value;
         eCompliance = eCompliMax;
@@ -69,13 +68,26 @@ public class Face : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SM.CurrentState != LastState)
+        {
+            eCompliance = eCompliMax;
+            LastState = SM.CurrentState;
+        }
+        
         if (SM.CurrentState == QS)
         {
             try
             {
                 QP = NavAge.transform.Find("QuestioningCanvasOrigin/CanvasHost/Canvas/QuestioningPanel(Clone)").gameObject.GetComponent<QuestioningPanel>();
-                
-                eCompliance = QP.GetComp();
+
+                if (eCompliance < QP.GetComp())
+                {
+                    eCompliance += 1 * Time.deltaTime;
+                }
+                else if (eCompliance > QP.GetComp())
+                {
+                    eCompliance -= 1 * Time.deltaTime;
+                }
             }
             catch
             {}
