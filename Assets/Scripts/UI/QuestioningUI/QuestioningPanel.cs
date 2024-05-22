@@ -206,5 +206,10 @@ namespace UI.QuestioningUI
                 LayoutRebuilder.MarkLayoutForRebuild((RectTransform)instance.transform);
             });
         }
+
+        public int GetComp()
+        {
+            return RequirementsManager.GetValue("compliance");
+        }
     }
 }
