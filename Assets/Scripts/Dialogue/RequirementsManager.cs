@@ -13,6 +13,11 @@ namespace Dialogue
         {
             m_requirements[pair.Name] = pair.Value;
         }
+        
+        public int GetValue(string name)
+        {
+            return m_requirements[name];
+        }
 
         public void ReportRequirement(ResponseResult requirement)
         {
