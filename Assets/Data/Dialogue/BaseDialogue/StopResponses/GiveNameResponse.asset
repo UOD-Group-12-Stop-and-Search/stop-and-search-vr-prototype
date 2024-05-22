@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0bfac4d9f68457fa5950e05971f2451, type: 3}
+  m_Script: {fileID: 11500000, guid: 59bcd47090d7452c9046d6f9d2524633, type: 3}
   m_Name: GiveNameResponse
   m_EditorClassIdentifier: 
   Results:
@@ -24,4 +24,13 @@ MonoBehaviour:
     RequirementMode: 4
     Name: knows_name
     Value: 0
-  Text: My name is %NAME%
+  m_textPossibilities:
+  - My name is Bob.
+  - It's Ben.
+  - It's Bill.
+  - The name is Fae.
+  - I'm Thomas.
+  - Sky's the name.
+  - Rich here.
+  - Nasteho is my name.
+  - Mehnaz.

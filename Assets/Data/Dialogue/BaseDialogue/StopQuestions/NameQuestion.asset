@@ -19,6 +19,6 @@ MonoBehaviour:
     Value: 0
   Responses:
   - {fileID: 11400000, guid: 680e2c095a92b48418221d465c40272f, type: 2}
-  - {fileID: 11400000, guid: 66579f315e0766c408acaf10bb91bc1c, type: 2}
+  - {fileID: 11400000, guid: 730a0c9297b2a7a4dae378be70cbaa26, type: 2}
   ButtonText: Name?
   MessageText: What's your name?
