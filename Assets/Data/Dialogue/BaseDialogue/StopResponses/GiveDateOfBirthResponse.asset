@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0bfac4d9f68457fa5950e05971f2451, type: 3}
+  m_Script: {fileID: 11500000, guid: 59bcd47090d7452c9046d6f9d2524633, type: 3}
   m_Name: GiveDateOfBirthResponse
   m_EditorClassIdentifier: 
   Results:
@@ -24,4 +24,9 @@ MonoBehaviour:
     RequirementMode: 4
     Name: knows_dob
     Value: 0
-  Text: My date of birth is %DOB%
+  m_textPossibilities:
+  - 31st January 1967
+  - It's today actually.
+  - 4th December 1999
+  - '22nd April '
+  - It's tomorrow
