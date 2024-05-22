@@ -11,52 +11,66 @@ namespace Items
         [SerializeField] private GameObject? drugObject;
         [SerializeField] private GameObject? itemObject;
 
-        public GameObject? currentSusItem { get; private set; }
-        public GameObject? npcWithSusItem { get; private set; }
+        [SerializeField] private int itemGenerationChance = 60;
+
+        private static GameObject? currentSusItem { get; set; }
+        private static GameObject? npcWithSusItem { get; set; }
 
         private readonly Random _random = new Random();
 
-        private enum ItemTypes
-        {
-            Knife,
-            Drug
-        }
-
         public void AttachItem(GameObject? npc, String locationName)
         {
-            Transform? location;
-            if (npcWithSusItem)
-            {
-                int i = _random.Next(5);
+            Transform location = npc.transform.Find(locationName);
+            int next;
 
-                if (i < 2)
+            Debug.Log("NpcWithSusItem is null: " + (npcWithSusItem == null));
+            Debug.Log("NpcWithSusItem: " + npcWithSusItem);
+
+            if (npcWithSusItem is not null)
+            {
+                next = _random.Next(0, 100);
+
+                Debug.Log("Triggered item generation");
+                Debug.Log("Next: " + next);
+
+                if (next <= itemGenerationChance)
                 {
-                    location = npc.transform.Find(locationName);
-                    if (location)
-                    {
-                        Instantiate(itemObject, location);
-                    }
+                    Instantiate(itemObject, location);
                 }
-
                 return;
             }
 
-            if (_random.Next(5) < 2)
+            int itemType = _random.Next(0, 2);
+            GameObject item = null;
+
+            switch (itemType)
             {
-                location = npc.transform.Find(locationName);
-                Instantiate(itemObject, location);
-                return;
+                case 0:
+                    item = knifeObject;
+                    break;
+                case 1:
+                    item = drugObject;
+                    break;
+                case 2:
+                    item = itemObject;
+                    break;
+            }
+            Debug.Log("Triggered potential sus item generation");
+            Debug.Log("Item type: " + itemType);
+            Debug.Log("Item: " + item);
+
+            next = _random.Next(0, 4);
+
+            if (item && next <= 3)
+            {
+                currentSusItem = Instantiate(item, location);
+
+                if (item != itemObject)
+                {
+                    npcWithSusItem = npc;
+                }
             }
 
-            int next = _random.Next(2);
-            location = npc.transform.Find(locationName);
-            currentSusItem = next switch
-            {
-                (int)ItemTypes.Knife => Instantiate(knifeObject, location),
-                (int)ItemTypes.Drug => Instantiate(drugObject, location),
-                _ => currentSusItem
-            };
-            npcWithSusItem = npc;
         }
 
         public void DropItem()

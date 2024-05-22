@@ -20,7 +20,7 @@ public class CrowdSpawner : ReferenceResolvedBehaviour
 
     [SerializeField] private AgentTarget[] m_agentTargets;
 
-    [BindComponent] private NpcItemController m_npcItemController;
+    [SerializeField] private NpcItemController m_npcItemController;
 
     [BindComponent] private AgentTarget m_startPosition;
 
