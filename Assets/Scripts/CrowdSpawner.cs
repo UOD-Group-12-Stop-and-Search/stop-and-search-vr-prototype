@@ -80,6 +80,7 @@ public class CrowdSpawner : ReferenceResolvedBehaviour
 
             // spawn the first agent
             CrowdAgent firstAgent = SpawnSingleAgent();
+            GenerateItem(firstAgent.gameObject);
 
             // get amount of agents to spawn
             int spawnCount = GetSpawnCount();
