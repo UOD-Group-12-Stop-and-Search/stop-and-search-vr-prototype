@@ -28,15 +28,9 @@ namespace Items
             Transform location = npc.transform.Find(locationName);
             int next;
 
-            Debug.Log("NpcWithSusItem is null: " + (NpcWithSusItem == null));
-            Debug.Log("NpcWithSusItem: " + NpcWithSusItem);
-
-            if (NpcWithSusItem is not null)
+            if (NpcWithSusItem != null)
             {
                 next = m_random.Next(0, 100);
-
-                Debug.Log("Triggered item generation");
-                Debug.Log("Next: " + next);
 
                 if (next <= m_itemGenerationChance)
                 {
@@ -60,9 +54,6 @@ namespace Items
                     item = m_itemObject;
                     break;
             }
-            Debug.Log("Triggered potential sus item generation");
-            Debug.Log("Item type: " + itemType);
-            Debug.Log("Item: " + item);
 
             next = m_random.Next(0, 4);
 
