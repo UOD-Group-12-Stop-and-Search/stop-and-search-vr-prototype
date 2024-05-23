@@ -6,7 +6,7 @@ namespace UI
 {
     public class LazyFollowHeadsetYaw : MonoBehaviour
     {
-        private const int HISTORY_LENGTH = 120;
+        private const int HISTORY_LENGTH = 60;
 
         private readonly RollingArray<Quaternion> m_headRotations = new RollingArray<Quaternion>(HISTORY_LENGTH);
         private readonly RollingArray<Vector3> m_headPositions = new RollingArray<Vector3>(HISTORY_LENGTH);
