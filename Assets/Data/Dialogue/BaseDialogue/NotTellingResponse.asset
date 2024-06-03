@@ -18,4 +18,4 @@ MonoBehaviour:
     RequirementMode: 3
     Name: compliance
     Value: 0
-  Text: Nuh uh, I've answered enough. I'm Not telling you that.
+  m_text: I think I have answered enough questions now.
