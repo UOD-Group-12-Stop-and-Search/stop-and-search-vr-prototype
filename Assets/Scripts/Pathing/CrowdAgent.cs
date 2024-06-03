@@ -41,10 +41,15 @@ namespace Pathing
             m_bodyRenderer.material.color = s_colors.GetRandomElement();
 
             m_walkingState.InitMovement(targetPosition);
+
+            // allow agents to path around each other by offsetting their priority
+            m_agent.avoidancePriority = Random.Range(11, 50);
         }
 
         public void MatchSpeed(CrowdAgent other)
         {
+            if (other == null) return;
+            
             m_agent.speed = other.m_agent.speed;
         }
     }
