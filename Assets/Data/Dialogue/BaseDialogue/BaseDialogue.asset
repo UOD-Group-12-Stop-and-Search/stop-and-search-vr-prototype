@@ -23,17 +23,23 @@ MonoBehaviour:
     PossibleTextEntries:
     - Hello there!
     - Greetings!
-    - Oi You
-    - Haiiii :3
-    - Hello
+    - Hey there!
+    - Hello!
+    - 'Hello, I''m a police officer, can I chat with you? '
+    - Hello, can I ask you a few questions?
+    - Hello, can I have a quick chat with you?
+    - Hi there, can I talk to you for a sec?
   - ConversationSide: 1
     PossibleTextEntries:
     - Hello
     - What?
-    - Me?
-    - Huh?
+    - Yes, officer. What's going on?
+    - Hi. Do you need something?
     - Yes?
     - What do you want?
+    - What can I do for you officer?
+    - Yes officer, what can I do for you?
+    - Yes officer, what do you want?
   StartingValues:
   - Name: compliance
     Value: 2
