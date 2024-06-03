@@ -24,12 +24,26 @@ MonoBehaviour:
   - ConversationSide: 0
     PossibleTextEntries:
     - I'm going to have to search you now
+    - I need to conduct a search on you.
+    - I have to perform a search. Please cooperate.
+    - A search is necessary at this point.
+    - "I have to ensure you\u2019re not carrying anything dangerous, so I need to
+      search you."
+    - I need to check you for any prohibited items.
+    - "I\u2019m going to conduct a search. Please cooperate."
   - ConversationSide: 1
     PossibleTextEntries:
-    - Oh goodie
-    - Yippee...
-    - Why?
-    - ruh roh
-    - erm what the scallop?
-    - At least its you...
+    - Alright, officer. Go ahead.
+    - Okay, I understand.
+    - Sure, no problem.
+    - Is this really necessary?
+    - I don't have anything to hide.
+    - "Fine, I\u2019ll cooperate."
+    - I understand. Go ahead.
+    - I hope this won't take long.
+    - Alright, but I want to know why.
+    - I don't believe this. Why me?
+    - This is a waste of time.
+    - Here we go. Just get it over with.
+    - I can't believe I have to go through this.
   StartingValues: []
