@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -19,6 +20,9 @@ public static class Extensions
 
     public static T GetRandomElement<T>(this IReadOnlyList<T> collection)
     {
+        if (!collection.Any())
+            throw new ArgumentException("collection cannot be empty");
+
         return collection[Mathf.RoundToInt(Random.value * (collection.Count - 1))];
     }
 
