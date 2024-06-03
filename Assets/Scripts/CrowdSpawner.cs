@@ -11,24 +11,24 @@ using Random = UnityEngine.Random;
 
 public class CrowdSpawner : ReferenceResolvedBehaviour
 {
-    private Transform m_agentParent;
+    private Transform m_agentParent = null!;
 
-    [SerializeField] private GameObject m_agentPrefab;
+    [SerializeField] private GameObject m_agentPrefab = null!;
 
     [SerializeField] private MinMaxFloat m_spawnInterval;
-    [SerializeField] private AnimationCurve m_spawnCountCurve;
+    [SerializeField] private AnimationCurve m_spawnCountCurve = null!;
 
-    [SerializeField] private AgentTarget[] m_agentTargets;
+    [SerializeField] private AgentTarget[] m_agentTargets = null!;
 
-    [SerializeField] private NpcItemController m_npcItemController;
+    [SerializeField] private NpcItemController m_npcItemController = null!;
 
-    [BindComponent] private AgentTarget m_startPosition;
+    [BindComponent] private AgentTarget m_startPosition = null!;
 
     public override void Start()
     {
         base.Start();
-        StartCoroutine(SpawnLoop());
         m_agentParent = GameObject.FindWithTag("Agent Parent").transform;
+        StartCoroutine(SpawnLoop());
     }
 
     private int GetSpawnCount()
@@ -41,9 +41,8 @@ public class CrowdSpawner : ReferenceResolvedBehaviour
         return Mathf.Max(1, Mathf.FloorToInt(sampledValue));
     }
 
-    private CrowdAgent SpawnSingleAgent()
+    private CrowdAgent SpawnSingleAgent(Vector3 startPosition)
     {
-        Vector3 startPosition = m_startPosition.GetRandomTargetPosition();
         Vector3 targetPosition = GetTargetPosition();
 
         // set the destination for the navigation agent
@@ -75,28 +74,36 @@ public class CrowdSpawner : ReferenceResolvedBehaviour
     {
         while (true)
         {
+            yield return Spawn(m_startPosition.GetRandomTargetPosition());
+
             // wait for a random amount of time
             yield return new WaitForSeconds(m_spawnInterval.GetRandomInRange());
+        }
 
-            // spawn the first agent
-            CrowdAgent firstAgent = SpawnSingleAgent();
-            GenerateItem(firstAgent.gameObject);
+        // ReSharper disable once IteratorNeverReturns
+        // coroutine is ended when the object lifetime ends
+    }
 
-            // get amount of agents to spawn
-            int spawnCount = GetSpawnCount();
+    public IEnumerator Spawn(Vector3 startPosition)
+    {
+        // spawn the first agent
+        CrowdAgent firstAgent = SpawnSingleAgent(startPosition);
+        GenerateItem(firstAgent.gameObject);
 
-            // spawn those agents
-            // but skip the first one as that's already done
-            for (int i = 1; i < spawnCount; i++)
-            {
-                // wait a frame between spawns
-                yield return null;
+        // get amount of agents to spawn
+        int spawnCount = GetSpawnCount();
 
-                // secondary agents should match the speed of the first agent to stay clumped
-                CrowdAgent newAgent = SpawnSingleAgent();
-                newAgent.MatchSpeed(firstAgent);
-                GenerateItem(newAgent.gameObject);
-            }
+        // spawn those agents
+        // but skip the first one as that's already done
+        for (int i = 1; i < spawnCount; i++)
+        {
+            // wait a frame between spawns
+            yield return null;
+
+            // secondary agents should match the speed of the first agent to stay clumped
+            CrowdAgent newAgent = SpawnSingleAgent(startPosition);
+            newAgent.MatchSpeed(firstAgent);
+            GenerateItem(newAgent.gameObject);
         }
     }
 }

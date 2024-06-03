@@ -1,14 +1,21 @@
-﻿using BeanCore.Unity.ReferenceResolver;
+﻿using System;
+using BeanCore.Unity.ReferenceResolver;
 using BeanCore.Unity.ReferenceResolver.Attributes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Pathing
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class AgentTarget : ReferenceResolvedBehaviour
+    public class AgentTarget : MonoBehaviour
     {
         [BindComponent]
         private SphereCollider m_sphereCollider;
+
+        private void Awake()
+        {
+            ReferenceResolver.ResolveReferences(this);
+        }
 
         public Vector3 GetRandomTargetPosition()
         {
